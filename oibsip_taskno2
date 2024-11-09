@@ -1,0 +1,82 @@
+# BMI Calculator
+
+from tkinter import *
+from tkinter import messagebox
+
+
+def get_height():
+    
+    # For getting height value
+    
+    height = float(ENTRY2.get())
+    return height
+
+
+def get_weight():
+
+    # For getting weight value
+    
+    weight = float(ENTRY1.get())
+    return weight
+
+
+def calculate_BMI(a=""):   # "a" is there because the bind function gives an argument to the function
+    print(a)
+    
+    # To get the BMI result
+    
+    try:
+        
+        height = get_height()
+        weight = get_weight()
+        BMI = weight / (height ** 2)
+        
+    except ZeroDivisionError:
+        messagebox.showinfo("Result", "Please enter positive value of height!")
+        
+    except ValueError:
+        messagebox.showinfo("Result", "Please enter valid data!")
+
+
+        
+    else:
+        
+        if BMI < 18.5:
+            res = "Your BMI is " + str(BMI) + "\nRemarks: Underweight."
+            messagebox.showinfo("Result", res)
+        elif 18.5 <= BMI <= 25.0:
+            res = "Your BMI is " + str(BMI) + "\nRemarks: Normal."
+            messagebox.showinfo("Result", res)
+        elif 25.0 < BMI <= 30:
+            res = "Your BMI is " + str(BMI) + "\nRemarks: Overweight."
+            messagebox.showinfo("Result", res)
+        elif 30.0 < BMI <= 35.0:
+            res = "Your BMI is " + str(BMI) + "\nRemarks: Moderately obese."
+            messagebox.showinfo("Result", res)
+        elif BMI > 35.0:
+            res = "Your BMI is " + str(BMI) + "\nRemarks: Severely obese."
+            messagebox.showinfo("Result", res)
+        
+
+
+if __name__ == '__main__':
+    TOP = Tk()
+    TOP.bind("<Return>", calculate_BMI)
+    TOP.geometry("500x500")
+    TOP.configure(background="light yellow")
+    TOP.title("BMI Calculator")
+    TOP.resizable(width=False, height=False)
+    LABLE = Label(TOP, bg="brown", fg="white", text="Welcome to BMI Calculator", font=("Times New Roman", 20, "bold"), pady=10)
+    LABLE.place(x=75, y=10)
+    LABLE1 = Label(TOP, bg="light pink", text="Enter Weight (in kg):", bd=6,font=("Cambria", 15, "bold"), pady=5)
+    LABLE1.place(x=75, y=80)
+    ENTRY1 = Entry(TOP, bd=10, width=6, font="Calibri(Body) 12")
+    ENTRY1.place(x=300, y=80)
+    LABLE2 = Label(TOP, bg="light pink", text="Enter Height (in m):", bd=6,font=("Cambria", 15, "bold"), pady=5)
+    LABLE2.place(x=75, y=140)
+    ENTRY2 = Entry(TOP, bd=10, width=6, font="Calibri(Body) 12")
+    ENTRY2.place(x=300, y=140)
+    BUTTON = Button(bg="purple",fg="white", bd=12, text="BMI", padx=33, pady=15, command=calculate_BMI,font=("Times New Roman", 25, "bold"))
+    BUTTON.grid(row=3, column=0, sticky=W)
+    BUTTON.place(x=140, y=250)
+    TOP.mainloop()
